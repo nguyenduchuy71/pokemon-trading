@@ -43,3 +43,6 @@ plans/*
 # e2e
 /test-results
 /playwright-report
+
+# Claude Code local session notes
+.claude/session-state/
