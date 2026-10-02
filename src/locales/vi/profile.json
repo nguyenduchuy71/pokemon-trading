@@ -1,0 +1,16 @@
+{
+  "tabs": { "collection": "Bộ sưu tập", "sale": "Đang bán", "trade": "Trao đổi", "wishlist": "Mong muốn" },
+  "stats": { "collection": "Thẻ sưu tầm", "listed": "Đang đăng", "wishlist": "Mong muốn" },
+  "message": "Nhắn tin",
+  "edit": "Sửa hồ sơ",
+  "blocked_notice": "Bạn đã chặn người dùng này.",
+  "empty_collection": "Chưa có binder công khai.",
+  "empty_sale": "Không có thẻ đang bán.",
+  "empty_trade": "Không có thẻ để trao đổi.",
+  "empty_wishlist": "Danh sách mong muốn trống hoặc riêng tư.",
+  "not_found_title": "Không tìm thấy người sưu tầm",
+  "not_found_body": "Tên người dùng không tồn tại hoặc tài khoản không còn hoạt động.",
+  "reputation_title": "Uy tín cộng đồng",
+  "reputation_soon": "Đánh giá cộng đồng sẽ có sau khi hai người xác nhận đã kết nối (sắp ra mắt).",
+  "reputation_disclaimer": "Uy tín phản ánh hoạt động trong cộng đồng, không phải bảo đảm giao dịch."
+}

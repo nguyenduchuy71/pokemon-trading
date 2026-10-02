@@ -1,0 +1,45 @@
+{
+  "landing": {
+    "eyebrow": "Cộng đồng người sưu tầm thẻ TCG",
+    "headline_1": "Sưu tầm.",
+    "headline_2": "Khám phá.",
+    "headline_3": "Kết nối.",
+    "lede": "CardSwap là nơi lưu bộ sưu tập, đăng thẻ muốn bán hoặc trao đổi, và nhắn tin trực tiếp với người đang có lá bài bạn tìm.",
+    "cta": "Tạo hồ sơ người sưu tầm",
+    "browse": "Xem thẻ đang đăng",
+    "recent": "Vừa được đăng",
+    "how_title": "Cách CardSwap hoạt động",
+    "steps": [
+      { "h": "Sưu tầm", "p": "Thêm lá bài bạn sở hữu từ danh mục thẻ EN & JP, chụp ảnh thật, xếp vào binder." },
+      { "h": "Khám phá", "p": "Tìm theo tên, Pokémon, bộ, số thẻ hay người dùng. Lọc theo tình trạng, ngôn ngữ, giá, thành phố." },
+      { "h": "Kết nối", "p": "Nhắn trực tiếp cho chủ thẻ, chia sẻ thẻ trong chat, và tự thoả thuận giao dịch theo cách của hai bạn." }
+    ],
+    "boundary_title": "Chúng tôi dừng ở bước kết nối",
+    "does": "CardSwap làm",
+    "does_items": ["Danh mục thẻ & bộ sưu tập", "Tin đăng bán / trao đổi", "Tin nhắn trực tiếp", "Báo cáo, chặn và kiểm duyệt"],
+    "doesnt": "CardSwap không làm",
+    "doesnt_items": ["Thanh toán hay giữ tiền", "Ký quỹ hay bảo đảm giao dịch", "Vận chuyển", "Thu thập địa chỉ nhà"]
+  },
+  "dashboard": {
+    "greeting": "Chào {{name}}",
+    "lede": "Két sắt của bạn hôm nay.",
+    "stats": {
+      "value": "Giá trị bộ sưu tập",
+      "total": "Tổng số thẻ",
+      "for_sale": "Đang bán",
+      "for_trade": "Đang trao đổi",
+      "wishlist": "Mong muốn",
+      "unread": "Tin chưa đọc"
+    },
+    "recent": "Mới đăng trên CardSwap",
+    "messages": "Tin nhắn gần đây",
+    "messages_empty": "Chưa có tin nhắn.",
+    "see_all": "Xem tất cả",
+    "wishlist_available": "Lá bài bạn mong muốn đang có người đăng",
+    "first_steps": "Bắt đầu",
+    "step_add": "Thêm lá bài đầu tiên",
+    "step_list": "Đăng một thẻ để bán hoặc trao đổi",
+    "step_wish": "Thêm một lá vào danh sách mong muốn",
+    "step_profile": "Hoàn thiện hồ sơ (ảnh, giới thiệu)"
+  }
+}

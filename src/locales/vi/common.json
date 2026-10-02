@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "CardSwap",
+    "tagline": "Sưu tầm — Khám phá — Kết nối",
+    "skip_to_content": "Bỏ qua đến nội dung chính"
+  },
+  "nav": {
+    "marketplace": "Khám phá",
+    "collection": "Bộ sưu tập",
+    "wishlist": "Danh sách mong muốn",
+    "messages": "Tin nhắn",
+    "dashboard": "Tổng quan",
+    "add_card": "Thêm thẻ",
+    "profile": "Hồ sơ",
+    "settings": "Cài đặt",
+    "admin": "Kiểm duyệt",
+    "sign_in": "Đăng nhập",
+    "sign_out": "Đăng xuất",
+    "me": "Tôi",
+    "main": "Điều hướng chính"
+  },
+  "actions": {
+    "close": "Đóng",
+    "retry": "Thử lại",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "delete": "Xoá",
+    "edit": "Sửa",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp tục",
+    "load_more": "Xem thêm",
+    "undo": "Hoàn tác",
+    "message_owner": "Nhắn chủ thẻ",
+    "interested_in_trading": "Muốn trao đổi",
+    "add_to_wishlist": "Thêm vào mong muốn",
+    "view_listing": "Xem thẻ",
+    "report": "Báo cáo",
+    "block": "Chặn",
+    "unblock": "Bỏ chặn"
+  },
+  "errors": {
+    "generic_title": "Có lỗi xảy ra",
+    "generic_body": "Không tải được dữ liệu. Vui lòng thử lại.",
+    "not_found_title": "Không tìm thấy trang",
+    "not_found_body": "Trang này không tồn tại hoặc đã bị gỡ.",
+    "rate_limited": "Bạn thao tác hơi nhanh — hãy chờ một chút.",
+    "blocked": "Không thể liên hệ người dùng này.",
+    "suspended": "Tài khoản của bạn đang bị tạm khoá.",
+    "duplicate": "Mục này đã tồn tại."
+  },
+  "condition": {
+    "MINT": "Mint",
+    "NEAR_MINT": "Near Mint",
+    "EXCELLENT": "Excellent",
+    "LIGHT_PLAYED": "Light Played",
+    "PLAYED": "Played",
+    "POOR": "Poor"
+  },
+  "listing_type": {
+    "SALE": "Bán",
+    "TRADE": "Trao đổi",
+    "SALE_OR_TRADE": "Bán hoặc trao đổi"
+  },
+  "listing": {
+    "trade_only": "Chỉ trao đổi",
+    "approx_hint": "Quy đổi gần đúng theo tỷ giá hằng ngày",
+    "real_photos": "Ảnh thật"
+  },
+  "language": {
+    "en": "Tiếng Anh",
+    "ja": "Tiếng Nhật"
+  },
+  "printing": {
+    "normal": "Thường",
+    "holo": "Holo",
+    "reverse": "Reverse Holo",
+    "firstEdition": "1st Edition"
+  },
+  "prefs": {
+    "theme": "Giao diện",
+    "theme_dark": "Tối",
+    "theme_light": "Sáng",
+    "theme_system": "Theo hệ thống",
+    "language": "Ngôn ngữ",
+    "currency": "Tiền tệ hiển thị"
+  },
+  "footer": {
+    "terms": "Điều khoản",
+    "privacy": "Quyền riêng tư",
+    "guidelines": "Quy tắc cộng đồng",
+    "prohibited": "Hàng cấm",
+    "safety": "An toàn",
+    "contact": "Liên hệ & khiếu nại",
+    "disclaimer": "CardSwap kết nối người sưu tầm, không xử lý hay bảo đảm giao dịch. Không liên kết với Nintendo, The Pokémon Company hay Game Freak.",
+    "catalog_credit": "Dữ liệu danh mục thẻ: TCGdex"
+  },
+  "member_since": "Thành viên từ {{year}}",
+  "coming_soon": "Đang xây dựng",
+  "member_since_short": "Từ {{year}}"
+}

@@ -1,0 +1,16 @@
+{
+  "tabs": { "collection": "Collection", "sale": "For sale", "trade": "For trade", "wishlist": "Wishlist" },
+  "stats": { "collection": "Cards collected", "listed": "Listed", "wishlist": "Wanted" },
+  "message": "Message",
+  "edit": "Edit profile",
+  "blocked_notice": "You have blocked this collector.",
+  "empty_collection": "No public binders yet.",
+  "empty_sale": "Nothing for sale right now.",
+  "empty_trade": "Nothing up for trade right now.",
+  "empty_wishlist": "Wishlist is empty or private.",
+  "not_found_title": "Collector not found",
+  "not_found_body": "That username doesn't exist or the account is no longer active.",
+  "reputation_title": "Community reputation",
+  "reputation_soon": "Community reviews unlock once both collectors confirm they connected (coming soon).",
+  "reputation_disclaimer": "Reputation reflects community activity, not a guarantee of any transaction."
+}
