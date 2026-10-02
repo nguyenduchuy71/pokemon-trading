@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "CardSwap",
+    "tagline": "Collect — Discover — Connect",
+    "skip_to_content": "Skip to main content"
+  },
+  "nav": {
+    "marketplace": "Discover",
+    "collection": "Collection",
+    "wishlist": "Wishlist",
+    "messages": "Messages",
+    "dashboard": "Dashboard",
+    "add_card": "Add card",
+    "profile": "Profile",
+    "settings": "Settings",
+    "admin": "Moderation",
+    "sign_in": "Sign in",
+    "sign_out": "Sign out",
+    "me": "Me",
+    "main": "Main navigation"
+  },
+  "actions": {
+    "close": "Close",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Continue",
+    "load_more": "Load more",
+    "undo": "Undo",
+    "message_owner": "Message owner",
+    "interested_in_trading": "Interested in trading",
+    "add_to_wishlist": "Add to wishlist",
+    "view_listing": "View listing",
+    "report": "Report",
+    "block": "Block",
+    "unblock": "Unblock"
+  },
+  "errors": {
+    "generic_title": "Something went wrong",
+    "generic_body": "We couldn't load this. Please try again.",
+    "not_found_title": "Page not found",
+    "not_found_body": "This page doesn't exist or was removed.",
+    "rate_limited": "You're going a little fast — please wait a moment.",
+    "blocked": "You can't contact this collector.",
+    "suspended": "Your account is currently suspended.",
+    "duplicate": "That already exists."
+  },
+  "condition": {
+    "MINT": "Mint",
+    "NEAR_MINT": "Near Mint",
+    "EXCELLENT": "Excellent",
+    "LIGHT_PLAYED": "Light Played",
+    "PLAYED": "Played",
+    "POOR": "Poor"
+  },
+  "listing_type": {
+    "SALE": "For sale",
+    "TRADE": "For trade",
+    "SALE_OR_TRADE": "Sale or trade"
+  },
+  "listing": {
+    "trade_only": "Trade only",
+    "approx_hint": "Approximate conversion at the daily rate",
+    "real_photos": "Real photos"
+  },
+  "language": {
+    "en": "English",
+    "ja": "Japanese"
+  },
+  "printing": {
+    "normal": "Normal",
+    "holo": "Holo",
+    "reverse": "Reverse Holo",
+    "firstEdition": "1st Edition"
+  },
+  "prefs": {
+    "theme": "Theme",
+    "theme_dark": "Dark",
+    "theme_light": "Light",
+    "theme_system": "System",
+    "language": "Language",
+    "currency": "Display currency"
+  },
+  "footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "guidelines": "Community guidelines",
+    "prohibited": "Prohibited items",
+    "safety": "Safety",
+    "contact": "Contact & complaints",
+    "disclaimer": "CardSwap connects collectors and does not process or guarantee transactions. Not affiliated with Nintendo, The Pokémon Company or Game Freak.",
+    "catalog_credit": "Card catalog data: TCGdex"
+  },
+  "member_since": "Member since {{year}}",
+  "coming_soon": "Under construction",
+  "member_since_short": "Since {{year}}"
+}

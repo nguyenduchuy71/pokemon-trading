@@ -1,0 +1,45 @@
+/*
+ * "Premium Collector Vault" palette.
+ * Dark (default): warm near-black vault, parchment ink, brass hardware.
+ * Light: ivory archival paper with darkened brass for AA contrast.
+ */
+:root,
+[data-theme="dark"] {
+  --scheme: dark;
+  --bg: #12100d;
+  --surface: #1a1713;
+  --raised: #221e19;
+  --line: #332d25;
+  --line-strong: #4a4136;
+  --ink: #efe6d4;
+  --ink-muted: #b8ab94;
+  --ink-faint: #8a7f6c;
+  --brass: #c9a25c;
+  --brass-strong: #e2c07f;
+  --on-brass: #1a1409;
+  --verdigris: #74b5a7;
+  --ember: #d9715a;
+  --moss: #94b07e;
+  --glow: rgb(201 162 92 / 0.07);
+  --grain-opacity: 0.05;
+}
+
+[data-theme="light"] {
+  --scheme: light;
+  --bg: #f3ede1;
+  --surface: #fbf8f2;
+  --raised: #fffdf9;
+  --line: #e0d6c3;
+  --line-strong: #c9bba2;
+  --ink: #1d1a16;
+  --ink-muted: #574e42;
+  --ink-faint: #7a6f5e;
+  --brass: #86621f;
+  --brass-strong: #6e4f15;
+  --on-brass: #fffaf0;
+  --verdigris: #2c6e62;
+  --ember: #b0412b;
+  --moss: #4a6b37;
+  --glow: rgb(134 98 31 / 0.06);
+  --grain-opacity: 0.035;
+}

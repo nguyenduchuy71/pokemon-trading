@@ -1,0 +1,45 @@
+{
+  "landing": {
+    "eyebrow": "A community for TCG collectors",
+    "headline_1": "Collect.",
+    "headline_2": "Discover.",
+    "headline_3": "Connect.",
+    "lede": "CardSwap is where you keep your collection, list cards you'd sell or trade, and message the collectors who have the card you're looking for.",
+    "cta": "Create your collector profile",
+    "browse": "Browse listed cards",
+    "recent": "Just listed",
+    "how_title": "How CardSwap works",
+    "steps": [
+      { "h": "Collect", "p": "Add cards you own from an EN & JP catalog, photograph the real copy, organise binders." },
+      { "h": "Discover", "p": "Search by name, Pokémon, set, number or user. Filter by condition, language, price and city." },
+      { "h": "Connect", "p": "Message owners directly, share cards in chat, and arrange the deal your own way." }
+    ],
+    "boundary_title": "We stop at the connection",
+    "does": "CardSwap does",
+    "does_items": ["Card catalog & collections", "Sale / trade listings", "Direct messaging", "Reporting, blocking & moderation"],
+    "doesnt": "CardSwap doesn't",
+    "doesnt_items": ["Process payments or hold funds", "Escrow or guarantee deals", "Handle shipping", "Collect home addresses"]
+  },
+  "dashboard": {
+    "greeting": "Hello, {{name}}",
+    "lede": "Your vault today.",
+    "stats": {
+      "value": "Collection value",
+      "total": "Total cards",
+      "for_sale": "For sale",
+      "for_trade": "For trade",
+      "wishlist": "Wishlist",
+      "unread": "Unread messages"
+    },
+    "recent": "Recently listed on CardSwap",
+    "messages": "Recent messages",
+    "messages_empty": "No messages yet.",
+    "see_all": "See all",
+    "wishlist_available": "Cards from your wishlist are listed",
+    "first_steps": "Getting started",
+    "step_add": "Add your first card",
+    "step_list": "List a card for sale or trade",
+    "step_wish": "Add a card to your wishlist",
+    "step_profile": "Complete your profile (photo, bio)"
+  }
+}

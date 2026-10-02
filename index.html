@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#12100d" />
+    <meta name="description" content="CardSwap — nơi người sưu tầm thẻ TCG khám phá thẻ, lập danh sách mong muốn và kết nối trực tiếp với nhau." />
+    <title>CardSwap — Collect · Discover · Connect</title>
+    <script>
+      // Apply the stored theme before first paint (avoids a light/dark flash).
+      try {
+        var p = JSON.parse(localStorage.getItem('cardswap.preferences') || '{}').state || {}
+        var t = p.theme === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : p.theme || 'dark'
+        document.documentElement.dataset.theme = t
+        if (p.locale) document.documentElement.lang = p.locale
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

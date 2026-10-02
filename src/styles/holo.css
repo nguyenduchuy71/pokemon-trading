@@ -1,0 +1,56 @@
+/*
+ * Holographic foil layer. Pointer position arrives as --mx/--my (0–100%)
+ * from <HoloFrame>; without JS the foil simply stays centered.
+ * Only visible on hover/focus — never animates on its own.
+ */
+.holo-frame {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.holo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  mix-blend-mode: color-dodge;
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgb(255 255 255 / 0.35), transparent 45%),
+    linear-gradient(
+      115deg,
+      transparent 20%,
+      rgb(255 119 115 / 0.5) 32%,
+      rgb(255 237 95 / 0.5) 40%,
+      rgb(168 255 95 / 0.45) 48%,
+      rgb(131 255 247 / 0.45) 56%,
+      rgb(120 148 255 / 0.5) 64%,
+      transparent 78%
+    );
+  background-size: 100% 100%, 250% 250%;
+  background-position: center, var(--mx) var(--my);
+  transition: opacity 220ms ease;
+}
+
+.holo-frame[data-foil="true"]:hover::after,
+.holo-frame[data-foil="true"]:focus-within::after {
+  opacity: 0.32;
+}
+
+/* Thin brass foil edge used on featured cards. */
+.foil-edge {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(135deg, var(--brass-strong), var(--line) 40%, var(--brass) 70%, var(--line)) border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .holo-frame::after {
+    background-position: center, 50% 50%;
+  }
+}

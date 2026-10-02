@@ -1,0 +1,38 @@
+{
+  "notice_title": "Lưu ý an toàn",
+  "notice_body": "CardSwap kết nối người sưu tầm nhưng không xử lý hay bảo đảm giao dịch.",
+  "notice_points": [
+    "Không chia sẻ mật khẩu hay thông tin tài chính nhạy cảm.",
+    "Kiểm tra tình trạng thẻ và danh tính trước khi hoàn tất giao dịch."
+  ],
+  "learn_more": "Mẹo an toàn",
+  "report_user": "Báo cáo người dùng",
+  "report_listing": "Báo cáo tin đăng",
+  "report_title_user": "Báo cáo @{{username}}",
+  "report_title_listing": "Báo cáo tin đăng",
+  "report_intro": "Báo cáo được gửi riêng tới đội kiểm duyệt. Người bị báo cáo sẽ không biết bạn là ai.",
+  "reason": "Lý do",
+  "details": "Chi tiết (tuỳ chọn)",
+  "details_placeholder": "Điều gì đã xảy ra?",
+  "submit": "Gửi báo cáo",
+  "submitted": "Cảm ơn bạn — đội kiểm duyệt sẽ xem xét.",
+  "duplicate": "Bạn đã báo cáo mục này rồi.",
+  "reasons": {
+    "SCAM_SUSPICION": "Nghi ngờ lừa đảo",
+    "HARASSMENT": "Quấy rối",
+    "SPAM": "Spam",
+    "FAKE_LISTING": "Tin đăng giả",
+    "MISLEADING_CONDITION": "Mô tả sai tình trạng thẻ",
+    "PROHIBITED_CONTENT": "Nội dung bị cấm",
+    "FAKE_CARD": "Thẻ giả",
+    "WRONG_PRICE": "Giá sai",
+    "WRONG_CARD_INFO": "Sai thông tin thẻ",
+    "MISLEADING_PHOTOS": "Ảnh gây hiểu lầm",
+    "OTHER": "Khác"
+  },
+  "block_title": "Chặn @{{username}}?",
+  "block_body": "Hai bạn sẽ không thể nhắn tin hay bắt đầu cuộc trò chuyện mới, và thẻ của họ sẽ bị ẩn khỏi kết quả của bạn. Bạn có thể bỏ chặn trong Cài đặt.",
+  "blocked_done": "Đã chặn @{{username}}.",
+  "unblocked_done": "Đã bỏ chặn.",
+  "blocked_composer": "Không thể gửi tin nhắn trong cuộc trò chuyện này."
+}

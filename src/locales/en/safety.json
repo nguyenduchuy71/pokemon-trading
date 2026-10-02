@@ -1,0 +1,38 @@
+{
+  "notice_title": "Safety reminder",
+  "notice_body": "CardSwap connects collectors but does not process or guarantee transactions.",
+  "notice_points": [
+    "Never share passwords or sensitive financial information.",
+    "Verify card condition and identity before completing a transaction."
+  ],
+  "learn_more": "Safety tips",
+  "report_user": "Report user",
+  "report_listing": "Report listing",
+  "report_title_user": "Report @{{username}}",
+  "report_title_listing": "Report listing",
+  "report_intro": "Reports go privately to our moderation team. The reported collector won't see who reported them.",
+  "reason": "Reason",
+  "details": "Details (optional)",
+  "details_placeholder": "What happened?",
+  "submit": "Send report",
+  "submitted": "Thanks — our team will review it.",
+  "duplicate": "You've already reported this.",
+  "reasons": {
+    "SCAM_SUSPICION": "Scam suspicion",
+    "HARASSMENT": "Harassment",
+    "SPAM": "Spam",
+    "FAKE_LISTING": "Fake listing",
+    "MISLEADING_CONDITION": "Misleading card condition",
+    "PROHIBITED_CONTENT": "Prohibited content",
+    "FAKE_CARD": "Fake card",
+    "WRONG_PRICE": "Wrong price",
+    "WRONG_CARD_INFO": "Wrong card information",
+    "MISLEADING_PHOTOS": "Misleading photos",
+    "OTHER": "Other"
+  },
+  "block_title": "Block @{{username}}?",
+  "block_body": "Neither of you will be able to message or start new conversations, and their cards will be hidden from your results. You can unblock in Settings.",
+  "blocked_done": "Blocked @{{username}}.",
+  "unblocked_done": "Unblocked.",
+  "blocked_composer": "Messages can't be sent in this conversation."
+}

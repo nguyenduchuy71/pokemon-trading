@@ -1,0 +1,52 @@
+{
+  "draft_notice": "Bản nháp — đang chờ tư vấn pháp lý trước khi ra mắt chính thức.",
+  "updated": "Cập nhật lần cuối: {{date}}",
+  "pages": {
+    "terms": {
+      "title": "Điều khoản sử dụng",
+      "sections": [
+        { "h": "CardSwap là gì", "p": ["CardSwap là nền tảng giúp người sưu tầm thẻ bài lưu trữ bộ sưu tập, đăng thẻ muốn bán hoặc trao đổi, tìm kiếm và nhắn tin trực tiếp với nhau.", "CardSwap không phải bên mua, bên bán hay trung gian của bất kỳ giao dịch nào. Chúng tôi không xử lý thanh toán, không giữ tiền, không bảo đảm, không ký quỹ, không vận chuyển và không xác nhận giao dịch đã diễn ra."] },
+        { "h": "Tài khoản", "p": ["Bạn đăng nhập bằng tài khoản Google và chịu trách nhiệm về hoạt động trên tài khoản của mình. Mỗi người chỉ nên dùng một tài khoản.", "Bạn phải đủ tuổi theo quy định pháp luật để tự mình thoả thuận giao dịch, hoặc có sự đồng ý của cha mẹ/người giám hộ."] },
+        { "h": "Tin đăng", "p": ["Tin đăng phải mô tả trung thực lá bài bạn đang thực sự sở hữu, kèm ảnh thật của chính lá bài đó.", "Không đăng hàng giả, hàng nhái, thẻ proxy được giới thiệu như thẻ thật, hàng ăn cắp hay bất kỳ mặt hàng nào trong danh sách Hàng cấm."] },
+        { "h": "Giao dịch giữa người dùng", "p": ["Mọi thoả thuận về giá, trao đổi, thanh toán, giao nhận là giữa các người dùng với nhau. CardSwap không chịu trách nhiệm về chất lượng, tính xác thực, việc giao nhận hay thanh toán.", "Hãy đọc Mẹo an toàn trước khi giao dịch."] },
+        { "h": "Nội dung và kiểm duyệt", "p": ["Chúng tôi có thể ẩn hoặc gỡ nội dung, tạm khoá hoặc chấm dứt tài khoản vi phạm Điều khoản hoặc Quy tắc cộng đồng.", "Bạn có thể gửi khiếu nại về quyết định kiểm duyệt qua email liên hệ ở cuối trang."] },
+        { "h": "Thương hiệu", "p": ["CardSwap là dự án độc lập, không liên kết với Nintendo, The Pokémon Company, Creatures hay Game Freak. Tên và hình ảnh thẻ thuộc về chủ sở hữu tương ứng."] }
+      ]
+    },
+    "privacy": {
+      "title": "Chính sách quyền riêng tư",
+      "sections": [
+        { "h": "Dữ liệu chúng tôi thu thập", "p": ["Từ Google: email, tên và ảnh đại diện (để tạo tài khoản).", "Do bạn cung cấp: tên người dùng, tên hiển thị, giới thiệu, thành phố gần đúng, bộ sưu tập, ảnh thẻ, tin đăng, danh sách mong muốn, tin nhắn, báo cáo.", "Kỹ thuật: dữ liệu phiên đăng nhập và lượt xem tin đăng được khử trùng lặp theo ngày."] },
+        { "h": "Dữ liệu chúng tôi KHÔNG thu thập", "p": ["Địa chỉ nhà, số điện thoại bắt buộc, giấy tờ tuỳ thân, tài khoản ngân hàng hay thông tin thanh toán. Ảnh được nén lại trên thiết bị của bạn và xoá dữ liệu vị trí (EXIF/GPS) trước khi tải lên."] },
+        { "h": "Mục đích sử dụng", "p": ["Vận hành tài khoản, hiển thị hồ sơ và tin đăng công khai, chuyển tin nhắn giữa người dùng, chống lạm dụng và kiểm duyệt nội dung."] },
+        { "h": "Ai thấy dữ liệu của bạn", "p": ["Công khai: hồ sơ, binder công khai, tin đăng, danh sách mong muốn công khai.", "Riêng tư: tin nhắn chỉ những người trong cuộc trò chuyện xem được; ảnh trong tin nhắn được lưu riêng tư. Báo cáo chỉ đội kiểm duyệt xem được.", "Bên xử lý dữ liệu: Supabase (cơ sở dữ liệu, xác thực, lưu trữ) và nhà cung cấp hosting."] },
+        { "h": "Quyền của bạn", "p": ["Bạn có thể xem và sửa hồ sơ bất cứ lúc nào, và xoá vĩnh viễn tài khoản trong Cài đặt. Khi xoá, hồ sơ, bộ sưu tập, tin đăng và ảnh của bạn bị xoá; tin nhắn bạn đã gửi vẫn hiển thị cho người nhận dưới tên “Người sưu tầm đã xoá tài khoản”."] }
+      ]
+    },
+    "community-guidelines": {
+      "title": "Quy tắc cộng đồng",
+      "sections": [
+        { "h": "Trung thực", "p": ["Mô tả đúng tình trạng thẻ, dùng ảnh thật của chính lá bài, ghi rõ nếu thẻ đã chấm điểm hoặc có lỗi in."] },
+        { "h": "Tôn trọng", "p": ["Không quấy rối, xúc phạm, phân biệt đối xử hay gây áp lực. Từ chối một lời đề nghị là quyền của mỗi người."] },
+        { "h": "Không spam", "p": ["Không gửi tin nhắn hàng loạt, không đăng lặp lại, không quảng cáo dịch vụ bên ngoài."] },
+        { "h": "Tự bảo vệ", "p": ["Bạn tự quyết định chia sẻ thông tin liên hệ. Không bao giờ chia sẻ mật khẩu hay mã OTP."] },
+        { "h": "Báo cáo và chặn", "p": ["Dùng nút Báo cáo khi thấy vi phạm và Chặn khi không muốn liên lạc. Tin đăng nhận nhiều báo cáo sẽ được tạm ẩn để đội kiểm duyệt xem xét."] }
+      ]
+    },
+    "prohibited-items": {
+      "title": "Hàng cấm",
+      "sections": [
+        { "h": "Không được đăng", "p": ["Thẻ giả, hàng nhái, thẻ proxy/custom được giới thiệu như thẻ chính hãng.", "Hàng ăn cắp hoặc không rõ nguồn gốc hợp pháp.", "Tài khoản game, mã code số, dịch vụ mở pack hộ hay xổ số/may rủi.", "Bất kỳ mặt hàng nào không phải thẻ bài bạn thực sự sở hữu."] }
+      ]
+    },
+    "safety": {
+      "title": "Mẹo an toàn",
+      "sections": [
+        { "h": "Trước khi giao dịch", "p": ["Xem hồ sơ, thời gian tham gia và các tin đăng khác của người kia.", "Yêu cầu thêm ảnh (mặt sau, cạnh thẻ, ảnh kèm tên người dùng viết tay) nếu cần."] },
+        { "h": "Gặp trực tiếp", "p": ["Chọn nơi công cộng, đông người (quán cà phê, cửa hàng thẻ). Kiểm tra thẻ kỹ trước khi trao đổi."] },
+        { "h": "Gửi hàng và thanh toán", "p": ["CardSwap không xử lý thanh toán hay vận chuyển. Hãy thống nhất rõ ràng trong tin nhắn và cân nhắc rủi ro trước khi chuyển tiền hoặc gửi thẻ.", "Không bao giờ chia sẻ mật khẩu, mã OTP hay thông tin tài chính nhạy cảm."] },
+        { "h": "Khi có vấn đề", "p": ["Báo cáo người dùng hoặc tin đăng, và chặn nếu cần. Với hành vi lừa đảo, hãy liên hệ cơ quan chức năng."] }
+      ]
+    }
+  }
+}
