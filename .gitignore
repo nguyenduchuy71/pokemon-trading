@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/dist
+supabase/.temp
+supabase/.branches
+scripts/catalog-import/.cache
+plans/*
+
+# e2e
+/test-results
+/playwright-report
