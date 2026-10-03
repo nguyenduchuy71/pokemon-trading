@@ -10,7 +10,7 @@
         { "h": "Listings", "p": ["Listings must honestly describe a card you actually own, with real photos of that card.", "Do not list counterfeits, proxies presented as genuine, stolen goods, or anything on the Prohibited Items list."] },
         { "h": "Deals between collectors", "p": ["Any agreement on price, trade, payment or handover is between users. CardSwap is not responsible for quality, authenticity, delivery or payment.", "Please read the Safety tips before dealing."] },
         { "h": "Content and moderation", "p": ["We may hide or remove content, and suspend or terminate accounts that break these Terms or the Community Guidelines.", "You can contest a moderation decision via the contact email in the footer."] },
-        { "h": "Trademarks", "p": ["CardSwap is an independent project, not affiliated with Nintendo, The Pokémon Company, Creatures or Game Freak. Card names and images belong to their respective owners."] }
+        { "h": "Trademarks", "p": ["CardSwap is an independent project, not affiliated with Nintendo, The Pokemon Company, Creatures or Game Freak. Card names and images belong to their respective owners."] }
       ]
     },
     "privacy": {
@@ -20,7 +20,9 @@
         { "h": "What we do NOT collect", "p": ["Home addresses, mandatory phone numbers, government ID, bank accounts or payment details. Photos are compressed on your device and stripped of location data (EXIF/GPS) before upload."] },
         { "h": "Why we use it", "p": ["To run your account, show public profiles and listings, deliver messages between collectors, prevent abuse and moderate content."] },
         { "h": "Who can see it", "p": ["Public: profile, public binders, listings, public wishlist.", "Private: messages are visible only to conversation members; chat photos are stored privately. Reports are visible only to moderators.", "Processors: Supabase (database, auth, storage) and our hosting provider."] },
-        { "h": "Your rights", "p": ["View and edit your profile any time, and permanently delete your account in Settings. Deletion removes your profile, collection, listings and photos; messages you sent remain visible to recipients as “Deleted collector”."] }
+        { "h": "Message and photo retention", "p": ["Messages and chat photos are deleted automatically after 7 days. Conversations remain in your inbox so you can see your contact history, but message content is not recoverable after deletion."] },
+        { "h": "Waitlist", "p": ["When membership is limited, new sign-ups may be placed on a waitlist. Waitlisted users can browse and save to wishlists but cannot list cards or message until a slot becomes available. Spots are filled automatically (first come, first served) or by admin activation."] },
+        { "h": "Your rights", "p": ["View and edit your profile any time, and permanently delete your account in Settings. Deletion removes your profile, collection, listings and photos; messages you sent remain visible to recipients as \"Deleted collector\"."] }
       ]
     },
     "community-guidelines": {
@@ -43,7 +45,7 @@
       "title": "Safety Tips",
       "sections": [
         { "h": "Before you deal", "p": ["Check the other collector's profile, membership age and other listings.", "Ask for more photos (back, edges, a photo with a handwritten username) if needed."] },
-        { "h": "Meeting in person", "p": ["Pick a busy public place (a café or card shop). Inspect the card carefully before exchanging."] },
+        { "h": "Meeting in person", "p": ["Pick a busy public place (a cafe or card shop). Inspect the card carefully before exchanging."] },
         { "h": "Shipping and payment", "p": ["CardSwap does not process payment or shipping. Agree terms clearly in chat and weigh the risk before sending money or cards.", "Never share passwords, one-time codes or sensitive financial information."] },
         { "h": "If something goes wrong", "p": ["Report the user or listing and block if needed. For fraud, contact the authorities."] }
       ]

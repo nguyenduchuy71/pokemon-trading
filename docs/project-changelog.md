@@ -2,7 +2,31 @@
 
 All notable changes to CardSwap by version.
 
-## [v0.1.0] - 2026-10-02
+## [v0.1.0] - 2026-10-03
+
+### Free-Tier User Caps & Message Retention (v1 Launch)
+
+**Added**
+- **Active user cap**: 100 concurrent active users enforced by waitlist (auto-FIFO promotion when slot opens, plus admin manual activation)
+- **Waitlist management**: New signups beyond 100 assigned `WAITLISTED` status; can browse/save to wishlists but cannot list cards or message
+- **Message quotas**: 200 text + 5 image messages per user per rolling 24h, enforced by database triggers
+- **Collection cap**: 20 cards per user, 3 photos per card (configurable via `app_settings`)
+- **7-day message retention**: Automatic daily purge via `purge-chat` Edge Function + pg_cron (messages + chat photos deleted, conversations preserved)
+- **All limits tunable**: Adjust caps in `app_settings` table without code redeploy
+
+**Documentation updates**
+- `docs/cost-control.md`: Updated message retention table, added Free-tier caps table, worst-case capacity estimates (850 MB storage, 45 MB messages)
+- `docs/deployment.md`: Added purge-chat function setup (pg_cron scheduling, PURGE_CRON_SECRET)
+- `docs/database-schema.md`: Documented `app_settings` table, waitlist RPCs (`waitlist_position`, `promote_waitlist`, `admin_list_waitlist`)
+- `docs/security.md`: Added waitlist enforcement explanation, automatic purge flow
+- `README.md`: Updated Cost section with free-tier caps summary
+- `src/locales/{en,vi}/legal.json`: Added "Message and photo retention" (7 days auto-delete) and "Waitlist" sections to Privacy Policy
+
+**Database changes**
+- `20261003000014_account_status_waitlisted.sql`: Added `account_status.WAITLISTED` enum value
+- `20261003000015_free_tier_limits.sql`: Created `app_settings` table, added waitlist/quota triggers + RPCs
+- `20261003000016_purge_expired_chat.sql`: Created `purge_expired_chat()` RPC
+- `supabase/functions/purge-chat/`: New Edge Function for daily message cleanup
 
 ### Initial Release (v1 Launch)
 

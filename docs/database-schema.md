@@ -43,6 +43,34 @@ erDiagram
     POKEMON_SPECIES ||--o{ POKEMON_CARDS : names
 ```
 
+## Infrastructure Tables
+
+### app_settings
+Free-tier quotas and configuration. All limits are tunable without code changes (live effect on inserts).
+
+```sql
+CREATE TABLE public.app_settings (
+  key TEXT PRIMARY KEY,
+  value INT NOT NULL CHECK (value >= 0)
+)
+```
+
+**Seeded defaults**:
+- `max_active_users`: 100
+- `msg_text_per_day`: 200
+- `msg_image_per_day`: 5
+- `max_collection_items`: 20
+- `max_photos_per_item`: 3
+- `message_retention_days`: 7
+
+**Access**: SELECT public (read-only); insert/update/delete revoked from all roles (admin via SQL editor only).
+
+**RLS Policies**:
+- SELECT: Public (anyone can read settings for client UI)
+- INSERT/UPDATE/DELETE: None (admin-only via direct SQL)
+
+---
+
 ## Core Tables
 
 ### profiles
@@ -59,7 +87,7 @@ CREATE TABLE public.profiles (
   preferred_locale TEXT NOT NULL DEFAULT 'vi',  -- 'vi' or 'en'
   preferred_currency currency_code NOT NULL DEFAULT 'VND',  -- 'VND' or 'USD'
   role user_role NOT NULL DEFAULT 'USER',  -- 'USER' or 'ADMIN'
-  status account_status NOT NULL DEFAULT 'ACTIVE',  -- 'ACTIVE' or 'SUSPENDED'
+  status account_status NOT NULL DEFAULT 'ACTIVE',  -- 'ACTIVE', 'WAITLISTED', or 'SUSPENDED'
   terms_accepted_at TIMESTAMPTZ,  -- Onboarding completion flag
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -68,8 +96,10 @@ CREATE TABLE public.profiles (
 
 **Enums**:
 - `user_role`: USER, ADMIN
-- `account_status`: ACTIVE, SUSPENDED
+- `account_status`: ACTIVE, WAITLISTED, SUSPENDED
 - `currency_code`: VND, USD
+
+**Free-tier enforcement**: the cap counts onboarded ACTIVE users (`active_member_count()`), so abandoned sign-ins never take a slot. When a collector accepts the terms, trigger `profiles_claim_slot` keeps them ACTIVE if a slot is free, else sets WAITLISTED. When a slot opens (user deleted or suspended, or `max_active_users` raised), `promote_waitlist()` promotes the longest-waiting WAITLISTED users (FIFO). Storage uploads are capped per user by `storage_upload_allowed(bucket)` in the storage insert policies (card photos: items × photos × 2 objects; avatars: 10/24h; chat images: daily image quota).
 
 **Triggers**:
 - `on_auth_user_created`: Inserts profile row when Supabase Auth creates user
@@ -523,9 +553,15 @@ CREATE TABLE public.pokemon_species (
 | `collection_stats(currency?)` | table | INVOKER | Aggregates user's collection: total_cards, estimated_value, sets, etc. |
 | `marketplace_facets()` | json | INVOKER | Returns available sets, rarities, languages, printings for sidebar |
 | `is_admin()` | bool | DEFINER | Checks if current user is admin |
-| `is_active_user()` | bool | DEFINER | Checks if current user is ACTIVE (not SUSPENDED) |
+| `is_active_user()` | bool | DEFINER | Checks if current user is ACTIVE (not WAITLISTED/SUSPENDED) |
+| `is_onboarded_user()` | bool | DEFINER | Checks if current user is ACTIVE or WAITLISTED (for wishlist access) |
 | `is_blocked_between(a, b)` | bool | DEFINER, internal only | Bidirectional block check used inside other definer functions |
 | `is_blocked_with(other)` | bool | DEFINER | Caller-scoped block check for clients and invoker RPCs |
+| `waitlist_position()` | int | DEFINER | 1-based position in line for waitlisted user; NULL if not waitlisted |
+| `promote_waitlist()` | void | DEFINER | Auto-promote longest-waiting WAITLISTED users to ACTIVE (internal trigger call) |
+| `admin_list_waitlist()` | table | DEFINER | Admin-only: returns waitlist (500 max) in FIFO order |
+| `app_setting(key)` | int | DEFINER | Fetch a quota limit value (called by triggers) |
+| `purge_expired_chat()` | table | DEFINER | Delete messages older than `message_retention_days`; return orphaned chat-image paths |
 | `admin_resolve_report(report, status, note?)` | void | DEFINER | Admin-only: update report status + log action |
 | `admin_set_listing_moderation(listing, status, note?)` | void | DEFINER | Admin-only: update listing status + log action |
 | `admin_set_user_status(user, status, note?)` | void | DEFINER | Admin-only: update user status + log action |

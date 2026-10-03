@@ -10,7 +10,7 @@
         { "h": "Tin đăng", "p": ["Tin đăng phải mô tả trung thực lá bài bạn đang thực sự sở hữu, kèm ảnh thật của chính lá bài đó.", "Không đăng hàng giả, hàng nhái, thẻ proxy được giới thiệu như thẻ thật, hàng ăn cắp hay bất kỳ mặt hàng nào trong danh sách Hàng cấm."] },
         { "h": "Giao dịch giữa người dùng", "p": ["Mọi thoả thuận về giá, trao đổi, thanh toán, giao nhận là giữa các người dùng với nhau. CardSwap không chịu trách nhiệm về chất lượng, tính xác thực, việc giao nhận hay thanh toán.", "Hãy đọc Mẹo an toàn trước khi giao dịch."] },
         { "h": "Nội dung và kiểm duyệt", "p": ["Chúng tôi có thể ẩn hoặc gỡ nội dung, tạm khoá hoặc chấm dứt tài khoản vi phạm Điều khoản hoặc Quy tắc cộng đồng.", "Bạn có thể gửi khiếu nại về quyết định kiểm duyệt qua email liên hệ ở cuối trang."] },
-        { "h": "Thương hiệu", "p": ["CardSwap là dự án độc lập, không liên kết với Nintendo, The Pokémon Company, Creatures hay Game Freak. Tên và hình ảnh thẻ thuộc về chủ sở hữu tương ứng."] }
+        { "h": "Thương hiệu", "p": ["CardSwap là dự án độc lập, không liên kết với Nintendo, The Pokemon Company, Creatures hay Game Freak. Tên và hình ảnh thẻ thuộc về chủ sở hữu tương ứng."] }
       ]
     },
     "privacy": {
@@ -20,7 +20,9 @@
         { "h": "Dữ liệu chúng tôi KHÔNG thu thập", "p": ["Địa chỉ nhà, số điện thoại bắt buộc, giấy tờ tuỳ thân, tài khoản ngân hàng hay thông tin thanh toán. Ảnh được nén lại trên thiết bị của bạn và xoá dữ liệu vị trí (EXIF/GPS) trước khi tải lên."] },
         { "h": "Mục đích sử dụng", "p": ["Vận hành tài khoản, hiển thị hồ sơ và tin đăng công khai, chuyển tin nhắn giữa người dùng, chống lạm dụng và kiểm duyệt nội dung."] },
         { "h": "Ai thấy dữ liệu của bạn", "p": ["Công khai: hồ sơ, binder công khai, tin đăng, danh sách mong muốn công khai.", "Riêng tư: tin nhắn chỉ những người trong cuộc trò chuyện xem được; ảnh trong tin nhắn được lưu riêng tư. Báo cáo chỉ đội kiểm duyệt xem được.", "Bên xử lý dữ liệu: Supabase (cơ sở dữ liệu, xác thực, lưu trữ) và nhà cung cấp hosting."] },
-        { "h": "Quyền của bạn", "p": ["Bạn có thể xem và sửa hồ sơ bất cứ lúc nào, và xoá vĩnh viễn tài khoản trong Cài đặt. Khi xoá, hồ sơ, bộ sưu tập, tin đăng và ảnh của bạn bị xoá; tin nhắn bạn đã gửi vẫn hiển thị cho người nhận dưới tên “Người sưu tầm đã xoá tài khoản”."] }
+        { "h": "Lưu trữ tin nhắn và ảnh", "p": ["Tin nhắn và ảnh trong tin nhắn được xoá tự động sau 7 ngày. Các cuộc trò chuyện vẫn hiển thị trong hộp thư để bạn thấy lịch sử liên lạc, nhưng nội dung tin nhắn không khôi phục được sau khi xoá."] },
+        { "h": "Danh sách chờ", "p": ["Khi số lượng thành viên bị giới hạn, những tài khoản đăng ký mới có thể được đưa vào danh sách chờ. Người dùng trong danh sách chờ có thể duyệt và lưu vào danh sách mong muốn nhưng không thể đăng thẻ hoặc nhắn tin cho đến khi có chỗ trống. Chỗ trống được điền tự động (ai vào trước được cấp trước) hoặc do admin kích hoạt."] },
+        { "h": "Quyền của bạn", "p": ["Bạn có thể xem và sửa hồ sơ bất cứ lúc nào, và xoá vĩnh viễn tài khoản trong Cài đặt. Khi xoá, hồ sơ, bộ sưu tập, tin đăng và ảnh của bạn bị xoá; tin nhắn bạn đã gửi vẫn hiển thị cho người nhận dưới tên \"Người sưu tầm đã xoá tài khoản\"."] }
       ]
     },
     "community-guidelines": {

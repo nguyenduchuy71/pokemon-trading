@@ -90,8 +90,18 @@ Functions that run as Postgres role `postgres` (bypassing RLS) with explicit val
   4. RPC `start_conversation`: Rejects with "blocked" error
   5. RPC `messages.before_insert trigger`: Rejects message if members are blocked
 
+### Waitlisted Users
+- **Column**: `profiles.status = 'WAITLISTED'`
+- **Enforcement Points**:
+  1. Free-tier cap: Signups beyond `max_active_users` (100) are auto-assigned WAITLISTED
+  2. Auto-promotion (FIFO): When an ACTIVE slot opens (user deleted/suspended), `promote_waitlist()` upgrades longest-waiting WAITLISTED user
+  3. RLS on writes: `is_active_user()` rejects WAITLISTED users from inserting messages, listings, reports
+  4. RLS on reads: WAITLISTED users can read public data but cannot participate (no collections/listings/messaging)
+  5. Wishlist access only: `is_onboarded_user()` allows WAITLISTED users to view/edit wishlists (discovery, no moderation needed)
+- **Admin override**: Set `status = 'ACTIVE'` manually via SQL to skip the queue
+
 ### Suspended Users
-- **Column**: `profiles.status` (ACTIVE or SUSPENDED)
+- **Column**: `profiles.status = 'SUSPENDED'`
 - **Enforcement Points**:
   1. RLS on all writes: `is_active_user()` check on INSERT/UPDATE/DELETE policies
   2. RPC `start_conversation`: Rejects if target is suspended
@@ -158,8 +168,20 @@ All images re-encoded on client via `canvas` before upload:
 
 ### Data Retention
 - Deleted collection items → photos cascade-deleted via `ON DELETE CASCADE`
-- Deleted messages with images → chat image files left in bucket (manual cleanup task for v1.1)
+- Messages + chat photos → auto-purged after 7 days by `purge_expired_chat()` daily job
 - Account deletion → cascade deletes all user's files (via auth.users → profiles trigger)
+
+## Automatic Message & Photo Purge
+
+**Daily job** (`purge-chat` Edge Function, triggered via pg_cron + pg_net):
+1. Calls SQL function `purge_expired_chat()`
+2. Deletes all messages older than `app_settings.message_retention_days` (default: 7 days)
+3. Returns orphaned chat-image file paths (uploads that succeeded but message send failed)
+4. Edge Function removes those files from the `chat-images` bucket (Storage API)
+5. Conversations and members are preserved (inbox still visible, no unread badge)
+6. Safe to re-run: missing files ignored, duplicate deletes are no-ops
+
+**Protection**: Function authenticated via secret header (`x-cron-secret`), executable only by service_role (not client-callable).
 
 ## Account Deletion & Data Erasure
 
@@ -171,7 +193,7 @@ All images re-encoded on client via `canvas` before upload:
    - Messages: Clear `sender_id → NULL` (author name lost but message text preserved for context)
    - Collections: Keep (community benefit from catalog)
    - Listings: Deactivate (`is_active = false`) or delete (per legal requirement)
-   - Chat photos: No action (remain in bucket for retention)
+   - Chat photos: Purged by daily job within 7 days (no special action needed)
 - User's auth.users account deleted by Supabase (triggers cascade via REFERENCES)
 
 ### GDPR/Privacy Compliance
@@ -244,6 +266,7 @@ Every action creates a row in `moderation_actions`:
 
 ### Edge Function Secrets
 - `FX_CRON_SECRET`: Used by pg_cron to authenticate fx-refresh invocation (stored in Supabase Secrets, not in .env)
+- `PURGE_CRON_SECRET`: Used by pg_cron to authenticate purge-chat invocation (daily message/photo cleanup)
 - `ALLOWED_ORIGIN`: Whitelist for CORS on fx-refresh callback
 
 ### Google OAuth Credentials
