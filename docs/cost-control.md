@@ -15,8 +15,22 @@ This document lists the limits, what they translate to in users/messages, and wh
 | Registered accounts | ~5,000 before DB pressure | 500 MB database |
 | Listings with real photos | **~2,500 (2 photos) – 5,000 (1 photo)** | 1 GB storage |
 | Chat messages sent per month | **~400,000** (≈ 13,000/day) | 2 M Realtime messages/month |
-| Chat messages stored in total | **~700,000** (2,000 users) / ~400,000 (5,000 users) | 500 MB database |
-| How long messages are kept | Until the DB fills — see retention table | 500 MB database |
+| Chat messages stored in total | **~45 MB** (7-day retention, any volume) | Messages purged automatically |
+| Message retention | **7 days** (then auto-deleted) | Daily purge-chat job |
+
+### Free-tier user caps
+
+| Cap | Limit | Enforced by |
+|---|---|---|
+| Active users (signup cap) | 100 | Waitlist (auto FIFO promotion) |
+| Waitlisted users (queue) | Unlimited (auto-promoted when slot opens) | `profiles.status = WAITLISTED` |
+| Text messages per user per 24h | 200 | Database trigger `messages_before_insert` |
+| Image messages per user per 24h | 5 | Database trigger `messages_before_insert` |
+| Cards per user (collection items) | 20 | Database trigger `collection_items_limit` |
+| Photos per card | 3 | Database trigger `collection_item_photos_limit` |
+| Card image dimensions | 800 px max | Client-side resize (Web P, quality 0.75) |
+| Card image file size | 1 MB max | Storage bucket policy |
+| Admin activation | Manual via SQL | Override waitlist (set `status = 'ACTIVE'`) |
 
 **Rule of thumb:** comfortable for a launch community of **a few hundred to ~2,000 active collectors**. Egress and photo storage run out first, not auth or messaging.
 
@@ -68,6 +82,28 @@ CardSwap is a pure SPA (no server functions), so it never touches serverless quo
 
 **Only optional cost:** a custom domain (`.vn` or `.com`, ~$10–35/year). Skip it by using `cardswap.pages.dev`.
 
+## How to change a limit
+
+All per-user quotas live in the `app_settings` table and can be tuned without deploying code:
+
+```sql
+-- View current settings
+SELECT key, value FROM public.app_settings;
+
+-- Change a limit (example: raise card cap to 30)
+UPDATE public.app_settings SET value = 30 WHERE key = 'max_collection_items';
+
+-- Available keys:
+-- max_active_users: total active user slots (100)
+-- msg_text_per_day: text messages per rolling 24h (200)
+-- msg_image_per_day: image messages per rolling 24h (5)
+-- max_collection_items: cards per user (20)
+-- max_photos_per_item: photos per card (3)
+-- message_retention_days: purge messages after N days (7)
+```
+
+Changes take effect immediately; no restart needed. The database enforces the new limits on all inserts.
+
 ## How the numbers were derived
 
 ### Database budget (500 MB, keep 20% headroom → ~400 MB usable)
@@ -85,21 +121,21 @@ Scenario **5,000 registered users**: 25 + 60 + 150 + ~30 ≈ 265 MB, which leave
 
 ### Message retention — how long messages stay
 
-**Current behaviour:** messages have no automatic expiry. They stay until the conversation is removed. If a user deletes their account, the messages they sent remain, shown as "Deleted collector". So "how long" depends on volume against the space left (2,000-user scenario, ~700k messages):
+**Current behaviour (v1):** messages and chat photos are deleted automatically after **7 days** via a daily `purge-chat` job (pg_cron + pg_net). Conversations and members are kept so the inbox still lists the contact.
 
-| Messages sent / month | ≈ per day | DB fills in |
+Messages deleted before they fill the DB—at any volume, retention is always 7 days:
+
+| Messages sent / month | ≈ per day | DB impact |
 |---|---|---|
-| 20,000 | 650 | ~3 years |
-| 50,000 | 1,700 | ~14 months |
-| 100,000 | 3,300 | ~7 months |
-| 200,000 | 6,700 | ~3.5 months |
-| 400,000 (Realtime cap) | 13,000 | ~7 weeks |
+| 20,000 | 650 | Minimal (~3 MB/month after 7d purge) |
+| 50,000 | 1,700 | ~8 MB/month after 7d purge |
+| 100,000 | 3,300 | ~16 MB/month after 7d purge |
+| 200,000 | 6,700 | ~33 MB/month after 7d purge |
+| 400,000 (Realtime cap) | 13,000 | ~65 MB/month after 7d purge |
 
-Recommended policy when the DB passes ~70% (not implemented yet, v1.1):
-- Delete text messages older than **12 months** (`pg_cron` daily job).
-- Delete **chat photos older than 90 days**. They live in the private `chat-images` bucket and take storage, not DB space.
-- Prune `listing_views_daily` rows older than **90 days**. The aggregate `view_count` lives on `card_listings`, so nothing visible is lost.
-- If you adopt this, add the retention periods to the Privacy page (`legal.json`).
+The 7-day window prevents DB bloat and handles disk space efficiently. Chat images (stored separately) are also purged after 7 days.
+
+**Future expansion (v1.1):** May add configurable retention periods per app_settings, and prune `listing_views_daily` rows older than 90 days.
 
 ### Realtime (2 M messages/month, 200 concurrent)
 
@@ -108,22 +144,32 @@ Realtime counts **one message per listening client** for each database change. A
 - each open thread channel;
 - the read-receipt `conversation_members` update.
 
-2 M ÷ ~5 ≈ **400k chat messages/month**. The server-side rate limit (20 messages/min/user) stops one account from burning the quota.
+2 M ÷ ~5 ≈ **400k chat messages/month** nominal budget. **However**, the database quota of 200 text messages per user per day (100 active users × 200/day) caps real-world throughput to **~20k messages/day** practical max across all users. Worst-case *if* everyone hit their quota daily (unrealistic): 100 × 200 × 5 deliveries = 100k Realtime events/day ≈ 3 M/month — **above the free tier budget**. Realistic usage patterns will stay well within 2 M/month because:
+- Not all users message daily
+- Most send far fewer than 200 messages
+- The rate limit (20 messages/min) prevents spiking
 
 Each browser tab holds **one WebSocket**, with its channels multiplexed. So 200 connections ≈ 200 people online at once. Typical peak-to-daily ratios put that at **~1,500–2,000 daily active users**.
 
-> Optimisation (v1.1): the inbox subscribes to *all* `messages` INSERTs and Realtime checks RLS for every online user on every insert. Subscribing only to the user's own `conversation_members` updates would cut the deliveries per message and the database load on the shared CPU.
+> Optimisation (v1.1): the inbox subscribes to *all* `messages` INSERTs and Realtime checks RLS for every online user on every insert. Subscribing only to the user's own `conversation_members` updates would cut the deliveries per message and the database load on the shared CPU. This will lower Realtime pressure further.
 
 ### Storage (1 GB)
 
 | Object | Estimated size |
 |---|---|
-| Card photo (320 px thumb + 960 px medium WebP) | ~140 KB |
+| Card photo (320 px thumb + 800 px medium WebP, q0.75) | ~100 KB |
 | Avatar (256 px WebP) | ~25 KB |
-| Chat photo (960 px WebP) | ~120 KB |
+| Chat photo (800 px WebP, q0.75, purged after 7 days) | ~80 KB |
 
-With 2,000 avatars (50 MB) and ~2,000 chat photos (240 MB), **~700 MB** is left for listing photos. That's **~5,000 photos**: about 2,500 listings at 2 photos each, or 5,000 at 1. Up to 6 photos per item are allowed today (`MAX_PHOTOS`).
-Free-tier levers: lower `MAX_PHOTOS` to 2–3, apply the 90-day chat-photo retention, and nudge users to photograph only the cards they list.
+**Worst-case capacity** (2,000-user scenario):
+- 2,000 avatars: ~50 MB
+- ~2,000 card photos (3 per card, 20 cards/user): ~600 MB
+- Chat photos: ~0 MB (7-day retention cleans these automatically)
+- **Total: ~650 MB of 1 GB** — comfortable margin
+
+That supports **~5,000 card photos** (2,500 listings at 2 photos each, or more at 1 photo). Each user is capped at 20 cards (3 photos max per card) = ~6 MB per user.
+
+The app enforces the cap: `max_photos_per_item = 3` (configurable via app_settings).
 
 ### Egress (5 GB + 5 GB cached)
 

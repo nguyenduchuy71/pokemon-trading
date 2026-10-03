@@ -234,21 +234,17 @@ See [docs/deployment.md](docs/deployment.md) for detailed steps.
 | Google Cloud | OAuth client only | Free, no billing account or trial needed. Publish the consent screen to *In production* (Testing = max 100 users); `openid/email/profile` scopes need no verification |
 | TCGdex · open.er-api.com · GitHub Actions | Free | Card images come from TCGdex's CDN, not our egress |
 
-**What the free stack can carry** (measured row sizes; photo sizes estimated):
-
-| | Ceiling | Limited by |
-|---|---|---|
-| Monthly active users | ~600 heavy – 2,500 light | Supabase egress |
-| Online at the same time | ~200 (≈ 1,500–2,000 daily actives) | Realtime connections |
-| Listings with photos | ~2,500 (2 photos) – 5,000 (1 photo) | 1 GB storage |
-| Messages sent | ~400k/month (≈ 13k/day) | Realtime 2 M deliveries (~5 per message) |
-| Messages stored | ~700k at 2,000 users (~310 B each) | 500 MB DB |
-
-**Message retention:** messages never expire automatically today; they stay until the DB fills. At 2,000 users that's ~3 years at 20k messages/month, ~14 months at 50k, ~7 months at 100k. A 12-month text and 90-day chat-photo retention job is planned for when the DB passes 70%.
+**Free-tier user caps**:
+- **100 active users** (with waitlist for signups; auto FIFO promotion when slots open, plus admin manual activation)
+- **200 text + 5 image messages per user per rolling 24h**
+- **20 cards per user**, **3 photos per card**
+- **800px images**, WebP @ quality 0.75 (~100 KB per photo)
+- **7-day message retention** (auto-purged daily; no DB bloat)
+- **~850 MB worst-case storage** (2,000 avatars + 2,500 card photos at 3 each); **~45 MB messages** (always, due to auto-purge)
 
 **Upgrade** to Supabase Pro ($25/mo: 8 GB DB, 100 GB storage, 250 GB egress, 500 connections, daily backups, no pausing) when any metric stays above 80%.
 
-See [docs/cost-control.md](docs/cost-control.md) for the calculations, retention plan, backups on Free, and optimisation levers.
+See [docs/cost-control.md](docs/cost-control.md) for detailed calculations, free-tier caps, and optimisation levers.
 
 ## Roadmap
 

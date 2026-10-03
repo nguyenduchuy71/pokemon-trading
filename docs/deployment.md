@@ -283,18 +283,52 @@ serve(async (req) => {
 
 **pg_cron Job** (one-time setup):
 ```sql
+-- Store secrets in Vault first (never in plain text inside cron.job):
+-- select vault.create_secret('<FX_CRON_SECRET>', 'fx_cron_secret');
+-- select vault.create_secret('<PURGE_CRON_SECRET>', 'purge_cron_secret');
 SELECT cron.schedule(
   'fx-refresh-daily',
   '0 8 * * *',  -- 8 AM daily
   'SELECT net.http_post(
     url := ''https://<project>.supabase.co/functions/v1/fx-refresh'',
-    headers := jsonb_build_object(''x-cron-secret'', ''<FX_CRON_SECRET>''),
+    headers := jsonb_build_object(''x-cron-secret'', (select decrypted_secret from vault.decrypted_secrets where name = ''fx_cron_secret'')),
     body := ''{}''::jsonb
   )'
 );
 ```
 
-### 7. Account Deletion Edge Function (v1, required)
+### 7. Chat Message Retention Edge Function (v1, required)
+
+Daily purge of messages and chat photos older than `app_settings.message_retention_days` (7 days).
+
+**Setup** (one-time):
+```bash
+# Deploy the function
+supabase functions deploy purge-chat
+
+# Set the cron secret (generate a random string, ~32 chars)
+supabase secrets set PURGE_CRON_SECRET=your-random-secret-key
+```
+
+**Enable pg_cron + pg_net** (one-time SQL):
+```sql
+-- Create the cron job (runs daily at 20:00 UTC = 03:00 Asia/Ho_Chi_Minh)
+SELECT cron.schedule(
+  'purge-chat-daily',
+  '0 20 * * *',
+  'SELECT net.http_post(
+    url := ''https://<project>.supabase.co/functions/v1/purge-chat'',
+    headers := jsonb_build_object(''x-cron-secret'', (select decrypted_secret from vault.decrypted_secrets where name = ''purge_cron_secret'')),
+    body := ''{}''::jsonb
+  )'
+);
+```
+
+Replace `<project>` with your Supabase project ID and `<PURGE_CRON_SECRET>` with the value you set above.
+
+The function calls `purge_expired_chat()` (SQL function) which deletes messages and returns orphaned chat-image paths. The Deno function then removes those files from the storage bucket. Safe to re-run: missing files are ignored.
+
+### 8. Account Deletion Edge Function (v1, required)
 
 `supabase/functions/delete-account` (verify_jwt = true) deletes the **caller's** files in `card-images/{uid}` and `avatars/{uid}`, then the auth user; FK cascades remove profile, collections, items, listings, wishlists and blocks. Messages they sent stay for recipients with `sender_id = null` ("Deleted collector"); reports they filed keep `reporter_id = null`.
 
@@ -341,13 +375,20 @@ supabase secrets set ALLOWED_ORIGIN=https://cardswap.vn
 - [ ] Site accessible at https://cardswap.vn
 - [ ] 301 redirects for www → apex domain (if needed)
 
-### 6. FX Rates (1 day before)
+### 6. Message Retention (1 day before)
+- [ ] `purge-chat` Edge Function deployed
+- [ ] `PURGE_CRON_SECRET` set in Supabase Vault
+- [ ] pg_cron job created + enabled (daily at 20:00 UTC)
+- [ ] First run verified (check logs, confirm files deleted)
+- [ ] Storage bucket reports reduced size after 7 days
+
+### 7. FX Rates (1 day before)
 - [ ] Edge Function deployed and tested
 - [ ] pg_cron job created + first run verified
 - [ ] Rates updating daily
 - [ ] Fallback rate handling confirmed (UI shows "≈" if stale)
 
-### 7. Final QA (1 day before)
+### 8. Final QA (1 day before)
 - [ ] Smoke test: Login → Search → View listing → Send message
 - [ ] Mobile viewport: Tap-through key flows on iPhone 12
 - [ ] Accessibility: Tab navigation, screen reader (NVDA/VoiceOver)
@@ -355,13 +396,13 @@ supabase secrets set ALLOWED_ORIGIN=https://cardswap.vn
 - [ ] Error handling: Simulate network errors, show graceful messages
 - [ ] Admin queue: Create test report → admin resolves → audit log verified
 
-### 8. Monitoring & Alerts (On launch)
+### 9. Monitoring & Alerts (On launch)
 - [ ] Sentry (or alternative error tracking) connected
 - [ ] Uptime monitoring configured (Pingdom, Uptime Robot)
 - [ ] Admin notified if > 5 errors/min
 - [ ] Database metrics dashboard accessible
 
-### 9. Launch (GO LIVE)
+### 10. Launch (GO LIVE)
 - [ ] Update landing page with "Now available" banner
 - [ ] Send announcement (email, social)
 - [ ] Monitor errors + performance (first 24 hours)
