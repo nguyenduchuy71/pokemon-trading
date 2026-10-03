@@ -34,6 +34,21 @@ export type Database = {
   }
   public: {
     Tables: {
+      app_settings: {
+        Row: {
+          key: string
+          value: number
+        }
+        Insert: {
+          key: string
+          value: number
+        }
+        Update: {
+          key?: string
+          value?: number
+        }
+        Relationships: []
+      }
       blocked_users: {
         Row: {
           blocked_id: string
@@ -857,6 +872,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_list_waitlist: {
+        Args: never
+        Returns: {
+          created_at: string
+          display_name: string
+          id: string
+          username: string
+        }[]
+      }
       admin_resolve_report: {
         Args: {
           p_note?: string
@@ -881,6 +905,7 @@ export type Database = {
         }
         Returns: undefined
       }
+      app_setting: { Args: { p_key: string }; Returns: number }
       card_haystack: {
         Args: {
           p_name: string
@@ -948,14 +973,17 @@ export type Database = {
         Args: { p_conversation: string }
         Returns: boolean
       }
+      is_onboarded_user: { Args: never; Returns: boolean }
       is_user_active: { Args: { p_user: string }; Returns: boolean }
       is_username_available: { Args: { p_username: string }; Returns: boolean }
       like_escape: { Args: { t: string }; Returns: string }
+      lock_active_user_cap: { Args: never; Returns: undefined }
       mark_conversation_read: {
         Args: { p_conversation: string }
         Returns: undefined
       }
       marketplace_facets: { Args: never; Returns: Json }
+      promote_waitlist: { Args: never; Returns: undefined }
       public_profile: {
         Args: { p_username: string }
         Returns: {
@@ -970,6 +998,12 @@ export type Database = {
           location_city: string
           username: string
           wishlist_count: number
+        }[]
+      }
+      purge_expired_chat: {
+        Args: never
+        Returns: {
+          path: string
         }[]
       }
       record_listing_view: { Args: { p_listing: string }; Returns: undefined }
@@ -1066,6 +1100,7 @@ export type Database = {
         Args: { p_listing?: string; p_other: string }
         Returns: string
       }
+      waitlist_position: { Args: never; Returns: number }
       wishlist_availability: {
         Args: never
         Returns: {
@@ -1075,7 +1110,7 @@ export type Database = {
       }
     }
     Enums: {
-      account_status: "ACTIVE" | "SUSPENDED"
+      account_status: "ACTIVE" | "SUSPENDED" | "WAITLISTED"
       card_condition:
         | "MINT"
         | "NEAR_MINT"
@@ -1232,7 +1267,7 @@ export const Constants = {
   },
   public: {
     Enums: {
-      account_status: ["ACTIVE", "SUSPENDED"],
+      account_status: ["ACTIVE", "SUSPENDED", "WAITLISTED"],
       card_condition: [
         "MINT",
         "NEAR_MINT",
