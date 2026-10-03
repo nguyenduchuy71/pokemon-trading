@@ -7,11 +7,14 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { MobileTabBar } from '@/components/layout/mobile-tab-bar'
 import { FullPageSpinner } from '@/components/layout/full-page-spinner'
 import { ChatWidget } from '@/components/chat/chat-widget'
+import { WaitlistBanner } from '@/components/layout/waitlist-banner'
+import { useAccountAccess } from '@/hooks/use-account-access'
 import { useChatWidget } from '@/stores/chat-widget-store'
 
 export function AppLayout() {
   const { t } = useTranslation()
   const session = useAuthStore((s) => s.session)
+  const { canCreate } = useAccountAccess()
 
   // Signing out (or switching account) must not leave someone else's thread open.
   useEffect(() => {
@@ -24,6 +27,7 @@ export function AppLayout() {
         {t('app.skip_to_content')}
       </a>
       <SiteHeader />
+      {session && <WaitlistBanner />}
       <main id="main" className="flex-1">
         <Suspense fallback={<FullPageSpinner />}>
           <Outlet />
@@ -31,7 +35,7 @@ export function AppLayout() {
       </main>
       <SiteFooter />
       {session && <MobileTabBar />}
-      {session && <ChatWidget />}
+      {session && canCreate && <ChatWidget />}
       <ScrollRestoration />
     </div>
   )

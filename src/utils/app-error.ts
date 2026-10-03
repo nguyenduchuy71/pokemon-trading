@@ -7,6 +7,10 @@ export type AppErrorCode =
   | 'blocked'
   | 'suspended'
   | 'photo_required'
+  | 'daily_quota_text'
+  | 'daily_quota_image'
+  | 'card_limit'
+  | 'photo_limit'
   | 'duplicate'
   | 'forbidden'
   | 'not_found'
@@ -27,7 +31,16 @@ interface PgLikeError {
   hint?: string | null
 }
 
-const MESSAGE_CODES: AppErrorCode[] = ['rate_limited', 'blocked', 'suspended', 'photo_required']
+const MESSAGE_CODES: AppErrorCode[] = [
+  'rate_limited',
+  'blocked',
+  'suspended',
+  'photo_required',
+  'daily_quota_text',
+  'daily_quota_image',
+  'card_limit',
+  'photo_limit',
+]
 
 export function toAppError(error: unknown): AppError {
   if (error instanceof AppError) return error

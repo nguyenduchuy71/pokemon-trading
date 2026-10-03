@@ -84,7 +84,11 @@
       "price_required": "A price is required for sale listings.",
       "photo_required": "Listings need at least one real photo.",
       "quantity": "Can't exceed the quantity you own."
-    }
+    },
+    "card_count": "{{used}}/{{max}} cards",
+    "limit_title": "Your collection is full",
+    "limit_body": "Each account can keep up to {{max}} cards (each card can have several copies). Remove a card to add a new one.",
+    "limit_cta": "Open collection"
   },
   "photos": {
     "title": "Real photos",

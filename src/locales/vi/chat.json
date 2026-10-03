@@ -28,5 +28,6 @@
   "view_profile": "Xem hồ sơ",
   "dismiss": "Ẩn",
   "open": "Mở tin nhắn",
-  "close": "Đóng tin nhắn"
+  "close": "Đóng tin nhắn",
+  "retention_notice": "Tin nhắn và ảnh tự động xoá sau {{days}} ngày."
 }

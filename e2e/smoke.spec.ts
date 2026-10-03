@@ -76,7 +76,7 @@ test('blocking hides listings and stops messaging', async ({ page }) => {
 
   await page.goto('/users/dungpulls')
   await page.getByRole('button', { name: 'Unblock' }).click()
-  await expect(page.getByRole('button', { name: 'Message' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Message', exact: true })).toBeVisible()
 })
 
 test('reports reach the moderation queue', async ({ page, browser }) => {

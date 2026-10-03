@@ -6,6 +6,13 @@ describe('toAppError', () => {
     expect(toAppError({ code: '42501', message: 'blocked' }).code).toBe('blocked')
     expect(toAppError({ code: '23514', message: 'photo_required' }).code).toBe('photo_required')
   })
+  it('maps free-tier quota and cap errors', () => {
+    expect(toAppError({ code: 'P0001', message: 'daily_quota_text' }).code).toBe('daily_quota_text')
+    expect(toAppError({ code: 'P0001', message: 'daily_quota_image' }).code).toBe('daily_quota_image')
+    expect(toAppError({ code: 'P0001', message: 'card_limit' }).code).toBe('card_limit')
+    expect(toAppError({ code: 'P0001', message: 'photo_limit' }).code).toBe('photo_limit')
+    expect(errorKey({ message: 'daily_quota_image' })).toBe('errors.daily_quota_image')
+  })
   it('maps postgres codes', () => {
     expect(toAppError({ code: '23505', message: 'dup key' }).code).toBe('duplicate')
     expect(toAppError({ code: '42501', message: 'new row violates row-level security policy' }).code).toBe('forbidden')

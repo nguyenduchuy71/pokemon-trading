@@ -32,3 +32,8 @@ export async function getPublicProfile(username: string) {
   const rows = check(await supabase.rpc('public_profile', { p_username: username }))
   return rows?.[0] ?? null
 }
+
+/** 1-based place in the waitlist, or null once the account is active. */
+export async function getWaitlistPosition(): Promise<number | null> {
+  return check(await supabase.rpc('waitlist_position'))
+}

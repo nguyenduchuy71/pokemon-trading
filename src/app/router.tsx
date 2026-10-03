@@ -1,7 +1,7 @@
 import { lazy, type ReactNode } from 'react'
 import { createBrowserRouter } from 'react-router'
 import { AppLayout } from '@/layouts/app-layout'
-import { RedirectIfSignedIn, RequireAdmin, RequireAuth } from '@/components/auth/route-guards'
+import { RedirectIfSignedIn, RequireActive, RequireAdmin, RequireAuth } from '@/components/auth/route-guards'
 
 /*
  * v1 routes. Intentionally absent: /orders /checkout /payment /shipping /trades (out of scope), [scope-guard: allow]
@@ -27,6 +27,7 @@ const LegalPage = lazy(() => import('@/pages/legal-page'))
 const NotFoundPage = lazy(() => import('@/pages/not-found-page'))
 
 const authed = (node: ReactNode) => <RequireAuth>{node}</RequireAuth>
+const active = (node: ReactNode) => <RequireActive>{node}</RequireActive>
 
 export const router = createBrowserRouter([
   {
@@ -37,15 +38,15 @@ export const router = createBrowserRouter([
       { path: '/register', element: <RedirectIfSignedIn><LoginPage /></RedirectIfSignedIn> },
       { path: '/auth/callback', element: <AuthCallbackPage /> },
       { path: '/onboarding', element: authed(<OnboardingPage />) },
-      { path: '/dashboard', element: authed(<DashboardPage />) },
+      { path: '/dashboard', element: active(<DashboardPage />) },
       { path: '/marketplace', element: <MarketplacePage /> },
-      { path: '/cards/add', element: authed(<AddCardPage />) },
+      { path: '/cards/add', element: active(<AddCardPage />) },
       { path: '/cards/:id', element: <ListingDetailPage /> },
-      { path: '/collection', element: authed(<CollectionPage />) },
+      { path: '/collection', element: active(<CollectionPage />) },
       { path: '/collection/:id', element: authed(<BinderPage />) },
       { path: '/wishlist', element: authed(<WishlistPage />) },
-      { path: '/messages', element: authed(<MessagesPage />) },
-      { path: '/messages/:id', element: authed(<MessagesPage />) },
+      { path: '/messages', element: active(<MessagesPage />) },
+      { path: '/messages/:id', element: active(<MessagesPage />) },
       { path: '/users/:username', element: <PublicProfilePage /> },
       { path: '/profile', element: authed(<ProfilePage />) },
       { path: '/settings', element: authed(<SettingsPage />) },

@@ -13,6 +13,7 @@ import {
   type AdminReport,
 } from '@/services/admin-service'
 import { Tabs } from '@/components/ui/tabs'
+import { WaitlistPanel } from '@/components/admin/waitlist-panel'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { EmptyState, ErrorState, Skeleton } from '@/components/ui/feedback-states'
@@ -21,7 +22,7 @@ import { useUiPreferences } from '@/stores/ui-preferences-store'
 import { errorKey } from '@/utils/app-error'
 import { formatDate } from '@/utils/format'
 
-type Tab = 'reports' | 'hidden' | 'suspended' | 'log'
+type Tab = 'reports' | 'hidden' | 'suspended' | 'waitlist' | 'log'
 
 /** Groups open reports per target so one listing reported 5× is one row. */
 function groupReports(reports: AdminReport[]) {
@@ -66,7 +67,7 @@ export default function AdminPage() {
       <h1 className="text-4xl">{t('title')}</h1>
       <p className="mt-2 text-ink-muted">{t('lede')}</p>
 
-      <Tabs className="mt-8" label={t('title')} value={tab} onChange={setTab} items={(['reports', 'hidden', 'suspended', 'log'] as Tab[]).map((v) => ({ value: v, label: t(`tabs.${v}`) }))} />
+      <Tabs className="mt-8" label={t('title')} value={tab} onChange={setTab} items={(['reports', 'hidden', 'suspended', 'waitlist', 'log'] as Tab[]).map((v) => ({ value: v, label: t(`tabs.${v}`) }))} />
 
       <div className="mt-6">
         {tab === 'reports' &&
@@ -188,6 +189,8 @@ export default function AdminPage() {
               ))}
             </ul>
           ))}
+
+        {tab === 'waitlist' && <WaitlistPanel />}
 
         {tab === 'log' &&
           (log.isPending ? (

@@ -12,7 +12,7 @@ import {
   type ThreadMessage,
 } from '@/services/messaging-service'
 import { processChatPhoto } from '@/utils/image-processing'
-import { uploadChatImage } from '@/services/storage-service'
+import { removeObjects, uploadChatImage } from '@/services/storage-service'
 import { useCurrentUserId } from '@/stores/auth-store'
 import { addOptimistic, markFailed, mergeIncoming, nextTempId, resolveOptimistic, type ThreadData } from '@/utils/thread-cache'
 import { inboxKey } from './use-inbox'
@@ -93,7 +93,13 @@ export function useSendMessage(conversationId: string) {
     mutationFn: async ({ input }: { input: SendInput; tempId: number }) => {
       if (input.kind === 'PHOTO') {
         const path = await uploadChatImage(conversationId, await processChatPhoto(input.file))
-        return sendMessage(conversationId, userId!, { kind: 'IMAGE', imagePath: path })
+        try {
+          return await sendMessage(conversationId, userId!, { kind: 'IMAGE', imagePath: path })
+        } catch (error) {
+          // e.g. daily image quota: don't leave an orphan file in storage until the purge.
+          await removeObjects('chat-images', [path]).catch(() => undefined)
+          throw error
+        }
       }
       return sendMessage(conversationId, userId!, input)
     },

@@ -1,7 +1,13 @@
 {
   "title": "Moderation",
   "lede": "Review reports, hide violating listings, suspend accounts. Every action is logged.",
-  "tabs": { "reports": "Open reports", "hidden": "Hidden listings", "suspended": "Suspended accounts", "log": "Action log" },
+  "tabs": {
+    "reports": "Open reports",
+    "hidden": "Hidden listings",
+    "suspended": "Suspended accounts",
+    "log": "Action log",
+    "waitlist": "Waitlist"
+  },
   "reports_count": "{{count}} reports",
   "target_listing": "Listing",
   "target_user": "User",
@@ -17,5 +23,13 @@
   "note_prompt": "Note for the moderation log (optional):",
   "done": "Updated.",
   "empty": "Nothing here.",
-  "status": { "VISIBLE": "Visible", "HIDDEN_PENDING_REVIEW": "Pending review", "REMOVED": "Removed" }
+  "status": {
+    "VISIBLE": "Visible",
+    "HIDDEN_PENDING_REVIEW": "Pending review",
+    "REMOVED": "Removed"
+  },
+  "waitlist": {
+    "active_count": "Active members: {{count}}/{{cap}}",
+    "activate": "Activate"
+  }
 }

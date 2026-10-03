@@ -47,7 +47,11 @@
     "rate_limited": "You're going a little fast — please wait a moment.",
     "blocked": "You can't contact this collector.",
     "suspended": "Your account is currently suspended.",
-    "duplicate": "That already exists."
+    "duplicate": "That already exists.",
+    "daily_quota_text": "You have reached the message limit for the last 24 hours. Please try again later.",
+    "daily_quota_image": "You have reached the photo limit for the last 24 hours. Please try again later.",
+    "card_limit": "You have reached the maximum number of cards. Remove a card from your collection to add a new one.",
+    "photo_limit": "This card already has the maximum number of photos."
   },
   "condition": {
     "MINT": "Mint",
@@ -97,5 +101,11 @@
   },
   "member_since": "Member since {{year}}",
   "coming_soon": "Under construction",
-  "member_since_short": "Since {{year}}"
+  "member_since_short": "Since {{year}}",
+  "waitlist": {
+    "banner": "You are #{{position}} on the waitlist. CardSwap is limited to {{cap}} active members; your account is activated automatically when a spot opens. Meanwhile you can browse the marketplace and build your wishlist.",
+    "banner_pending": "You are on the waitlist. CardSwap is limited to {{cap}} active members; your account is activated automatically when a spot opens.",
+    "activated": "Your account is now active. Welcome to CardSwap!",
+    "chat_locked": "You can message collectors once your account is activated."
+  }
 }

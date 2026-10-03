@@ -28,5 +28,6 @@
   "view_profile": "View profile",
   "dismiss": "Dismiss",
   "open": "Open messages",
-  "close": "Close messages"
+  "close": "Close messages",
+  "retention_notice": "Messages and photos are deleted automatically after {{days}} days."
 }

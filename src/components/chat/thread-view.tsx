@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft, Ban, Flag, MoreHorizontal, UserRound, X } from 'lucide-react'
 import { useRealtimeThread, useSendMessage, useThreadMembers, useThreadMessages, nextTempId } from '@/queries/use-thread'
 import { useInbox } from '@/queries/use-inbox'
+import { useAppLimits } from '@/queries/use-app-limits'
 import { useCurrentUserId } from '@/stores/auth-store'
 import { useUiPreferences } from '@/stores/ui-preferences-store'
 import { flattenChronological } from '@/utils/thread-cache'
@@ -33,6 +34,7 @@ function dismissedThreads(): string[] {
 export function ThreadView({ conversationId, onBack, onClose }: { conversationId: string; onBack: () => void; onClose: () => void }) {
   const { t } = useTranslation('chat')
   const { t: tc } = useTranslation()
+  const { messageRetentionDays } = useAppLimits()
   const locale = useUiPreferences((s) => s.locale)
   const userId = useCurrentUserId()
   const messages = useThreadMessages(conversationId)
@@ -160,6 +162,8 @@ export function ThreadView({ conversationId, onBack, onClose }: { conversationId
             </button>
           </div>
         )}
+
+        <p className="mb-4 text-center text-[11px] text-ink-faint">{t('retention_notice', { days: messageRetentionDays })}</p>
 
         {messages.hasNextPage && (
           <div className="mb-4 flex justify-center">

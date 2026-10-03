@@ -84,7 +84,11 @@
       "price_required": "Cần nhập giá cho tin bán.",
       "photo_required": "Tin đăng cần ít nhất một ảnh thật.",
       "quantity": "Không vượt quá số lượng bạn sở hữu."
-    }
+    },
+    "card_count": "{{used}}/{{max}} thẻ",
+    "limit_title": "Bộ sưu tập đã đầy",
+    "limit_body": "Mỗi tài khoản lưu tối đa {{max}} thẻ (mỗi thẻ có thể có nhiều bản). Hãy xoá bớt thẻ để thêm thẻ mới.",
+    "limit_cta": "Mở bộ sưu tập"
   },
   "photos": {
     "title": "Ảnh thật",
