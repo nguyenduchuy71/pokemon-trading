@@ -23,6 +23,16 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
+/** Write areas (add card, binders, chat). Waitlisted accounts browse instead; RLS enforces it too. */
+export function RequireActive({ children }: { children: ReactNode }) {
+  const me = useMe()
+  return (
+    <RequireAuth>
+      {me.data?.status === 'WAITLISTED' ? <Navigate to="/marketplace" replace /> : children}
+    </RequireAuth>
+  )
+}
+
 /** UI convenience only — admin RPCs and RLS enforce the real check server-side. */
 export function RequireAdmin({ children }: { children: ReactNode }) {
   const me = useMe()

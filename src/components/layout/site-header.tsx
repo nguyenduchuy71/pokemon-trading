@@ -4,6 +4,7 @@ import { Plus, Search } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { useAuthStore } from '@/stores/auth-store'
 import { useMe } from '@/queries/use-me'
+import { useAccountAccess } from '@/hooks/use-account-access'
 import { Avatar } from '@/components/ui/avatar'
 import { ButtonLink } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
@@ -20,6 +21,7 @@ export function SiteHeader() {
   const { t } = useTranslation()
   const session = useAuthStore((s) => s.session)
   const me = useMe()
+  const { canCreate } = useAccountAccess()
   const navigate = useNavigate()
   const [q, setQ] = useState('')
 
@@ -34,7 +36,7 @@ export function SiteHeader() {
         <Wordmark to={session ? '/dashboard' : '/'} />
 
         <nav aria-label={t('nav.main')} className="hidden items-center gap-5 lg:flex">
-          {NAV.map((item) => (
+          {NAV.filter((item) => canCreate || item.to !== '/collection').map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
@@ -62,12 +64,14 @@ export function SiteHeader() {
           <PreferenceControls className="hidden sm:flex" />
           {session ? (
             <>
-              <span className="hidden md:block">
-                <ButtonLink to="/cards/add" size="sm">
-                  <Plus className="h-4 w-4" aria-hidden />
-                  {t('nav.add_card')}
-                </ButtonLink>
-              </span>
+              {canCreate && (
+                <span className="hidden md:block">
+                  <ButtonLink to="/cards/add" size="sm">
+                    <Plus className="h-4 w-4" aria-hidden />
+                    {t('nav.add_card')}
+                  </ButtonLink>
+                </span>
+              )}
               <NavLink to="/profile" aria-label={t('nav.profile')} className="hidden md:block">
                 <Avatar src={me.data?.avatar_url} name={me.data?.username ?? '?'} size={34} />
               </NavLink>

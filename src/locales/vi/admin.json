@@ -1,7 +1,13 @@
 {
   "title": "Kiểm duyệt",
   "lede": "Xem báo cáo, ẩn tin đăng vi phạm, tạm khoá tài khoản. Mọi thao tác đều được ghi nhật ký.",
-  "tabs": { "reports": "Báo cáo mở", "hidden": "Tin đã ẩn", "suspended": "Tài khoản bị khoá", "log": "Nhật ký" },
+  "tabs": {
+    "reports": "Báo cáo mở",
+    "hidden": "Tin đã ẩn",
+    "suspended": "Tài khoản bị khoá",
+    "log": "Nhật ký",
+    "waitlist": "Danh sách chờ"
+  },
   "reports_count": "{{count}} báo cáo",
   "target_listing": "Tin đăng",
   "target_user": "Người dùng",
@@ -17,5 +23,13 @@
   "note_prompt": "Ghi chú cho nhật ký kiểm duyệt (tuỳ chọn):",
   "done": "Đã cập nhật.",
   "empty": "Không có mục nào.",
-  "status": { "VISIBLE": "Hiển thị", "HIDDEN_PENDING_REVIEW": "Chờ duyệt", "REMOVED": "Đã gỡ" }
+  "status": {
+    "VISIBLE": "Hiển thị",
+    "HIDDEN_PENDING_REVIEW": "Chờ duyệt",
+    "REMOVED": "Đã gỡ"
+  },
+  "waitlist": {
+    "active_count": "Đang hoạt động: {{count}}/{{cap}}",
+    "activate": "Kích hoạt"
+  }
 }

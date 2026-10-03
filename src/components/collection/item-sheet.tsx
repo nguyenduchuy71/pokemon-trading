@@ -4,10 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight, Trash2 } from 'lucide-react'
 import { z } from 'zod'
-import { collectionItemSchema, MAX_PHOTOS, type CollectionItemInput, type CollectionItemValues } from '@/schemas/collection-item-schema'
+import { collectionItemSchema, type CollectionItemInput, type CollectionItemValues } from '@/schemas/collection-item-schema'
 import { sortedPhotos, type ItemWithDetails } from '@/services/collection-service'
 import { publicImageUrl } from '@/services/storage-service'
 import { useAddPhotos, useDeleteItem, useRemovePhoto, useUpdateItem } from '@/queries/use-collections'
+import { useAppLimits } from '@/queries/use-app-limits'
 import { Dialog } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
@@ -36,6 +37,7 @@ export function ItemSheet({ item, binders, onClose, onMove, editable }: ItemShee
   const addPhotos = useAddPhotos()
   const removePhoto = useRemovePhoto()
   const [newFiles, setNewFiles] = useState<File[]>([])
+  const { maxPhotosPerItem } = useAppLimits()
 
   const form = useForm<{ item: CollectionItemInput }, unknown, { item: CollectionItemValues }>({ resolver: zodResolver(formSchema) })
   useEffect(() => {
@@ -118,7 +120,7 @@ export function ItemSheet({ item, binders, onClose, onMove, editable }: ItemShee
             <form onSubmit={save} noValidate className="space-y-5">
               <PhotoUploader
                 files={newFiles}
-                onFilesChange={(f) => setNewFiles(f.slice(0, MAX_PHOTOS - photos.length))}
+                onFilesChange={(f) => setNewFiles(f.slice(0, Math.max(0, maxPhotosPerItem - photos.length)))}
                 existing={photos.map((p) => ({ id: p.id, url: publicImageUrl('card-images', p.thumb_path) ?? '' }))}
                 onRemoveExisting={(id) => void deletePhoto(id)}
               />

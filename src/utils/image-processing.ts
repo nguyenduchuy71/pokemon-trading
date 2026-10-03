@@ -9,7 +9,7 @@ export const ACCEPTED_INPUT_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 export const IMAGE_SIZES = {
   thumb: 320,
-  medium: 960,
+  medium: 800,
   avatar: 256,
 } as const
 
@@ -53,10 +53,10 @@ async function encode(bitmap: ImageBitmap, max: number, square: boolean): Promis
   ctx.drawImage(bitmap, sx, sy, sw, sh, 0, 0, width, height)
 
   const toBlob = (type: string, quality: number) => new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality))
-  const webp = await toBlob('image/webp', 0.82)
+  const webp = await toBlob('image/webp', 0.75)
   // Older Safari silently returns PNG for unsupported types → fall back to JPEG.
   if (webp && webp.type === 'image/webp') return webp
-  const jpeg = await toBlob('image/jpeg', 0.85)
+  const jpeg = await toBlob('image/jpeg', 0.8)
   if (!jpeg) throw new ImageInputError('decode')
   return jpeg
 }

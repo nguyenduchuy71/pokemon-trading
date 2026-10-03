@@ -47,7 +47,11 @@
     "rate_limited": "Bạn thao tác hơi nhanh — hãy chờ một chút.",
     "blocked": "Không thể liên hệ người dùng này.",
     "suspended": "Tài khoản của bạn đang bị tạm khoá.",
-    "duplicate": "Mục này đã tồn tại."
+    "duplicate": "Mục này đã tồn tại.",
+    "daily_quota_text": "Bạn đã gửi hết số tin nhắn cho phép trong 24 giờ. Hãy thử lại sau.",
+    "daily_quota_image": "Bạn đã gửi hết số ảnh cho phép trong 24 giờ. Hãy thử lại sau.",
+    "card_limit": "Bạn đã đạt số thẻ tối đa. Hãy xoá bớt thẻ trong bộ sưu tập để thêm thẻ mới.",
+    "photo_limit": "Thẻ này đã có đủ số ảnh tối đa."
   },
   "condition": {
     "MINT": "Mint",
@@ -97,5 +101,11 @@
   },
   "member_since": "Thành viên từ {{year}}",
   "coming_soon": "Đang xây dựng",
-  "member_since_short": "Từ {{year}}"
+  "member_since_short": "Từ {{year}}",
+  "waitlist": {
+    "banner": "Bạn đang ở vị trí #{{position}} trong danh sách chờ. CardSwap đang giới hạn {{cap}} thành viên hoạt động; khi có chỗ trống, tài khoản của bạn sẽ được kích hoạt tự động. Trong lúc chờ, bạn vẫn có thể xem chợ thẻ và tạo wishlist.",
+    "banner_pending": "Bạn đang trong danh sách chờ. CardSwap đang giới hạn {{cap}} thành viên hoạt động; khi có chỗ trống, tài khoản của bạn sẽ được kích hoạt tự động.",
+    "activated": "Tài khoản của bạn đã được kích hoạt. Chào mừng đến CardSwap!",
+    "chat_locked": "Bạn có thể nhắn tin sau khi tài khoản được kích hoạt."
+  }
 }

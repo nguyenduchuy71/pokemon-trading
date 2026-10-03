@@ -14,6 +14,8 @@ import { CatalogCardSummary } from '@/components/catalog/catalog-card-summary'
 import { ItemFields } from '@/components/collection/item-fields'
 import { ListingFields } from '@/components/collection/listing-fields'
 import { PhotoUploader } from '@/components/collection/photo-uploader'
+import { CardLimitNotice } from '@/components/collection/card-limit-notice'
+import { useAppLimits } from '@/queries/use-app-limits'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import { errorKey, toAppError } from '@/utils/app-error'
@@ -33,6 +35,11 @@ export default function AddCardPage() {
   const collections = useCollections()
   const addCard = useAddCard()
   const [photoError, setPhotoError] = useState<string>()
+  const { maxCollectionItems, maxPhotosPerItem } = useAppLimits()
+  // A draft saved under an older, higher photo limit must not exceed today's cap.
+  const draftPhotos = draft.photos.slice(0, maxPhotosPerItem)
+  const cardsUsed = (collections.data ?? []).reduce((n, c) => n + (c.items[0]?.count ?? 0), 0)
+  const atLimit = collections.isSuccess && cardsUsed >= maxCollectionItems
 
   const binders = useMemo(() => (collections.data ?? []).map((c) => ({ id: c.id, name: c.name })), [collections.data])
   const defaultBinder = params.get('binder') ?? collections.data?.find((c) => c.is_default)?.id ?? ''
@@ -81,7 +88,7 @@ export default function AddCardPage() {
 
   const onSubmit = handleSubmit(async (values) => {
     if (!draft.card) return
-    if (values.list && draft.photos.length === 0) {
+    if (values.list && draftPhotos.length === 0) {
       setPhotoError(t('add.errors.photo_required'))
       return
     }
@@ -102,7 +109,7 @@ export default function AddCardPage() {
           value_currency: item.value_currency,
           notes: item.notes || null,
         },
-        photos: draft.photos,
+        photos: draftPhotos,
         listing: listing && {
           listing_type: listing.listing_type,
           price: listing.listing_type === 'TRADE' ? null : listing.price,
@@ -127,6 +134,9 @@ export default function AddCardPage() {
     <section className="mx-auto max-w-3xl px-4 py-10 md:py-14">
       <p className="eyebrow">{t('add.eyebrow')}</p>
       <h1 className="mt-2 text-4xl md:text-5xl">{t('add.title')}</h1>
+      {collections.isSuccess && (
+        <p className="mt-2 font-mono text-xs text-ink-faint">{t('add.card_count', { used: cardsUsed, max: maxCollectionItems })}</p>
+      )}
 
       <ol className="mt-6 flex gap-2 font-mono text-[11px] uppercase tracking-widest" aria-label={t('add.title')}>
         {STEPS.map((s, i) => (
@@ -138,7 +148,9 @@ export default function AddCardPage() {
         ))}
       </ol>
 
-      {!draft.card ? (
+      {atLimit ? (
+        <CardLimitNotice max={maxCollectionItems} />
+      ) : !draft.card ? (
         <div className="card-surface mt-8 p-5 md:p-7">
           <CardPicker onPick={pickCard} autoFocus />
         </div>
@@ -160,7 +172,7 @@ export default function AddCardPage() {
               printings={printings}
               binders={binders}
             />
-            <PhotoUploader files={draft.photos} onFilesChange={(f) => { draft.setPhotos(f); setPhotoError(undefined) }} error={photoError} />
+            <PhotoUploader files={draftPhotos} onFilesChange={(f) => { draft.setPhotos(f); setPhotoError(undefined) }} error={photoError} />
           </div>
 
           <div className={cn('card-surface p-5 md:p-7', list && 'foil-edge')}>

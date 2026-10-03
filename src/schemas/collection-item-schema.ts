@@ -44,4 +44,3 @@ export const listingSchema = z
 export type ListingInput = z.input<typeof listingSchema>
 export type ListingValues = z.output<typeof listingSchema>
 
-export const MAX_PHOTOS = 6

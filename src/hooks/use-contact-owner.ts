@@ -8,6 +8,7 @@ import { useAuthStore } from '@/stores/auth-store'
 import { useChatWidget } from '@/stores/chat-widget-store'
 import { toast } from '@/components/ui/toast'
 import { errorKey } from '@/utils/app-error'
+import { useAccountAccess } from './use-account-access'
 
 /**
  * "Message owner" / "Interested in trading": opens (or reuses) the 1:1 conversation and, the
@@ -22,10 +23,15 @@ export function useContactOwner() {
   const session = useAuthStore((s) => s.session)
   const openThread = useChatWidget((s) => s.openThread)
   const [pending, setPending] = useState(false)
+  const { isWaitlisted } = useAccountAccess()
 
   async function contact(ownerId: string, listingId?: string) {
     if (!session) {
       navigate(`/login?next=${encodeURIComponent(location.pathname + location.search)}`)
+      return
+    }
+    if (isWaitlisted) {
+      toast.info(t('waitlist.chat_locked'))
       return
     }
     setPending(true)

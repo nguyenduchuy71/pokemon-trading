@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase-client'
-import { check, unwrap } from '@/utils/app-error'
+import { check, toAppError, unwrap } from '@/utils/app-error'
 import type { Database } from '@/types/database'
 
 type ModerationStatus = Database['public']['Enums']['moderation_status']
@@ -74,4 +74,14 @@ export async function setListingModeration(id: string, status: ModerationStatus,
 
 export async function setUserStatus(id: string, status: AccountStatus, note?: string) {
   check(await supabase.rpc('admin_set_user_status', { p_user: id, p_status: status, p_note: note }))
+}
+
+export async function listWaitlist() {
+  return check(await supabase.rpc('admin_list_waitlist')) ?? []
+}
+
+export async function countActiveUsers(): Promise<number> {
+  const { count, error } = await supabase.from('profiles').select('id', { count: 'exact', head: true }).eq('status', 'ACTIVE')
+  if (error) throw toAppError(error)
+  return count ?? 0
 }

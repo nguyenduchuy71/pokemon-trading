@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Camera, ImagePlus, X } from 'lucide-react'
 import { ACCEPTED_INPUT_TYPES, ImageInputError, validateImageFile } from '@/utils/image-processing'
-import { MAX_PHOTOS } from '@/schemas/collection-item-schema'
+import { useAppLimits } from '@/queries/use-app-limits'
 import { toast } from '@/components/ui/toast'
 import { cn } from '@/utils/cn'
 
@@ -27,7 +27,8 @@ export function PhotoUploader({ files, onFilesChange, existing = [], onRemoveExi
   const previews = useMemo(() => files.map((f) => URL.createObjectURL(f)), [files])
   useEffect(() => () => previews.forEach((u) => URL.revokeObjectURL(u)), [previews])
 
-  const remaining = MAX_PHOTOS - existing.length - files.length
+  const { maxPhotosPerItem } = useAppLimits()
+  const remaining = maxPhotosPerItem - existing.length - files.length
 
   function accept(list: FileList | null) {
     if (!list) return
@@ -40,7 +41,7 @@ export function PhotoUploader({ files, onFilesChange, existing = [], onRemoveExi
         if (e instanceof ImageInputError) toast.error(t('photos.invalid'))
       }
     }
-    if (valid.length > remaining) toast.info(t('photos.max', { count: MAX_PHOTOS }))
+    if (valid.length > remaining) toast.info(t('photos.max', { count: maxPhotosPerItem }))
     onFilesChange([...files, ...valid.slice(0, Math.max(remaining, 0))])
   }
 
