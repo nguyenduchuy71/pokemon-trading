@@ -430,3 +430,7 @@ verify_jwt = true
 [functions.fx-refresh]
 # Authenticated by x-cron-secret instead of a user JWT.
 verify_jwt = false
+
+[functions.purge-chat]
+# Authenticated by x-cron-secret instead of a user JWT.
+verify_jwt = false
